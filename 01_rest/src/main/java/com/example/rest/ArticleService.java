@@ -60,4 +60,11 @@ public class ArticleService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    // DELETE
+    public void delete(Long id) {
+        if (repository.existsById(id))
+            repository.deleteById(id);
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
 }

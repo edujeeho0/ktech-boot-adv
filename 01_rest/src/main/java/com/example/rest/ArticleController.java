@@ -2,6 +2,7 @@ package com.example.rest;
 
 import com.example.rest.dto.ArticleDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class ArticleController {
         return service.readOne(id);
     }
 
+    // UPDATE
     @PutMapping("{id}")
     public ArticleDto update(
             @PathVariable("id")
@@ -51,5 +53,17 @@ public class ArticleController {
             ArticleDto dto
     ) {
         return service.update(id, dto);
+    }
+
+    // DELETE
+    @DeleteMapping("{id}")
+    // @ResponseStatus 를 사용하면
+    // 기본 응답 코드를 설정할 수 있다.
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+            @PathVariable("id")
+            Long id
+    ) {
+        service.delete(id);
     }
 }
