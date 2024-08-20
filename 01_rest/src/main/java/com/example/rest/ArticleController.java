@@ -33,4 +33,13 @@ public class ArticleController {
     public List<ArticleDto> readAll() {
         return service.readAll();
     }
+
+    // READ ONE
+    @GetMapping("{id}")
+    public ArticleDto readOne(
+            @PathVariable("id")
+            Long id
+    ) {
+        return service.readOne(id);
+    }
 }
