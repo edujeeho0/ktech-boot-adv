@@ -47,4 +47,17 @@ public class ArticleService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    // UPDATE
+    public ArticleDto update(Long id, ArticleDto dto) {
+        Optional<Article> optionalArticle = repository.findById(id);
+        if (optionalArticle.isPresent()) {
+            Article target = optionalArticle.get();
+            target.setTitle(dto.getTitle());
+            target.setContent(dto.getContent());
+            target.setWriter(dto.getWriter());
+            return ArticleDto.fromEntity(repository.save(target));
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
 }

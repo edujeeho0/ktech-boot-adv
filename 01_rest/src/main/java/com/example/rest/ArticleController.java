@@ -42,4 +42,14 @@ public class ArticleController {
     ) {
         return service.readOne(id);
     }
+
+    @PutMapping("{id}")
+    public ArticleDto update(
+            @PathVariable("id")
+            Long id,
+            @RequestBody
+            ArticleDto dto
+    ) {
+        return service.update(id, dto);
+    }
 }
