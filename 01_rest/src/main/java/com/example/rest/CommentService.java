@@ -73,4 +73,20 @@ public class CommentService {
         target.setWriter(dto.getWriter());
         return CommentDto.fromEntity(commentRepository.save(target));
     }
+
+    public void delete(
+            Long articleId,
+            Long commentId
+    ) {
+        Optional<Comment> optionalComment =
+                commentRepository.findById(commentId);
+        if (optionalComment.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        Comment target = optionalComment.get();
+        if (!articleId.equals(target.getArticle().getId()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        commentRepository.delete(target);
+    }
 }
