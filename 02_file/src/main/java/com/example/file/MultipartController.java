@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Path;
 
 @RestController
 public class MultipartController {
@@ -22,14 +23,17 @@ public class MultipartController {
             MultipartFile multipartFile
     ) throws IOException {
         System.out.println(multipartFile.getOriginalFilename());
-        byte[] bytes = multipartFile.getBytes();
+        Path downloadPath =
+                Path.of("media/" + multipartFile.getOriginalFilename());
+        multipartFile.transferTo(downloadPath);
+        /*byte[] bytes = multipartFile.getBytes();
         System.out.println(new String(bytes));
 
         File file = new File("./" + multipartFile.getOriginalFilename());
         try (OutputStream outputStream = new FileOutputStream(file)){
             outputStream.write(bytes);
-        }
+        }*/
 
-        return "success";
+        return "http://localhost:8080/static/" + multipartFile.getOriginalFilename();
     }
 }
