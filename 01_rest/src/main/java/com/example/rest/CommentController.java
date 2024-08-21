@@ -4,6 +4,8 @@ import com.example.rest.dto.CommentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /*
 POST /articles/{articleId}/comments
 GET /articles/{articleId}/comments
@@ -25,5 +27,14 @@ public class CommentController {
             CommentDto dto
     ) {
         return service.create(articleId, dto);
+    }
+
+    // READ ALL
+    @GetMapping
+    public List<CommentDto> readAll(
+            @PathVariable("articleId")
+            Long articleId
+    ) {
+        return service.readAll(articleId);
     }
 }

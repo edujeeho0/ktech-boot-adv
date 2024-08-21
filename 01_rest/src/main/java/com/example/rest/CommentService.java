@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,4 +34,20 @@ public class CommentService {
                 .fromEntity(commentRepository.save(newComment));
     }
 
+    // READ ALL
+    public List<CommentDto> readAll(Long articleId) {
+        Optional<Article> optionalArticle =
+                articleRepository.findById(articleId);
+        if (optionalArticle.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        // Comment의 리스트니까
+        List<Comment> comments = commentRepository
+                .findAllByArticle(optionalArticle.get());
+        // CommentDto의 리스트로
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        for (Comment comment: comments) {
+            commentDtoList.add(CommentDto.fromEntity(comment));
+        }
+        return commentDtoList;
+    }
 }
