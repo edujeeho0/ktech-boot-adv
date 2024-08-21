@@ -37,4 +37,16 @@ public class CommentController {
     ) {
         return service.readAll(articleId);
     }
+
+    @PutMapping("{commentId}")
+    public CommentDto update(
+            @PathVariable("articleId")
+            Long articleId,
+            @PathVariable("commentId")
+            Long commentId,
+            @RequestBody
+            CommentDto dto
+    ) {
+        return service.update(articleId, commentId, dto);
+    }
 }

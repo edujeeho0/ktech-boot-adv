@@ -50,4 +50,27 @@ public class CommentService {
         }
         return commentDtoList;
     }
+
+    // UPDATE
+    public CommentDto update(
+            Long articleId,
+            Long commentId,
+            CommentDto dto
+    ) {
+        Optional<Comment> optionalComment =
+                commentRepository.findById(commentId);
+        if (optionalComment.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        Comment target = commentRepository.findById(commentId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Comment target = optionalComment.get();
+
+        // 만약 댓글이 URL 상의 게시글의 댓글인지 확인하고 싶다면
+        if (!articleId.equals(target.getArticle().getId()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        target.setContent(dto.getContent());
+        target.setWriter(dto.getWriter());
+        return CommentDto.fromEntity(commentRepository.save(target));
+    }
 }
