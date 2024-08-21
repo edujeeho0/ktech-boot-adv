@@ -32,9 +32,18 @@ public class ArticleController {
     }
 
     // READ ALL
+//    @GetMapping
+//    public List<ArticleDto> readAll() {
+//        return service.readAll();
+//    }
     @GetMapping
-    public List<ArticleDto> readAll() {
-        return service.readAll();
+    public Page<ArticleDto> readAll(
+            @RequestParam(value = "page", defaultValue = "0")
+            Integer pageNumber,
+            @RequestParam(value = "size", defaultValue = "20")
+            Integer pageSize
+    ) {
+        return service.readAll(pageNumber, pageSize);
     }
 
     // READ ONE

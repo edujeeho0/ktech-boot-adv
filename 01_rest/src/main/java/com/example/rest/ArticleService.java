@@ -41,6 +41,19 @@ public class ArticleService {
         return articleList;
     }
 
+    public Page<ArticleDto> readAll(
+            Integer pageNumber,
+            Integer pageSize
+    ) {
+        Pageable pageable =
+                PageRequest.of(pageNumber, pageSize);
+        Page<Article> articlePage = repository.findAll(pageable);
+        Page<ArticleDto> articleDtoPage = articlePage
+//                .map(article -> ArticleDto.fromEntity(article))
+                .map(ArticleDto::fromEntity);
+        return articleDtoPage;
+    }
+
     // READ ONE
     public ArticleDto readOne(Long id) {
         Optional<Article> optionalArticle = repository.findById(id);
