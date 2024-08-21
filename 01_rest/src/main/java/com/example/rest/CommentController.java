@@ -1,0 +1,29 @@
+package com.example.rest;
+
+import com.example.rest.dto.CommentDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+/*
+POST /articles/{articleId}/comments
+GET /articles/{articleId}/comments
+PUT /articles/{articleId}/comments/{commentId}
+DELETE /articles/{articleId}/comments/{commentId}
+ */
+@RestController
+@RequestMapping("/articles/{articleId}/comments")
+@RequiredArgsConstructor
+public class CommentController {
+    private final CommentService service;
+
+    // CREATE
+    @PostMapping
+    public CommentDto create(
+            @PathVariable("articleId")
+            Long articleId,
+            @RequestBody
+            CommentDto dto
+    ) {
+        return service.create(articleId, dto);
+    }
+}
