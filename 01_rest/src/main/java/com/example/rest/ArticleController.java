@@ -1,7 +1,9 @@
 package com.example.rest;
 
 import com.example.rest.dto.ArticleDto;
+import com.example.rest.entity.Article;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,5 +67,16 @@ public class ArticleController {
             Long id
     ) {
         service.delete(id);
+    }
+
+    @GetMapping("paged")
+    // /articles/paged?page=0&size=10
+    public Page<Article> readAllPaged(
+            @RequestParam("page")
+            Integer pageNumber,
+            @RequestParam("size")
+            Integer pageSize
+    ) {
+        return service.readPagedArticle(pageNumber, pageSize);
     }
 }

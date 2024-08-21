@@ -3,6 +3,9 @@ package com.example.rest;
 import com.example.rest.dto.ArticleDto;
 import com.example.rest.entity.Article;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -66,5 +69,16 @@ public class ArticleService {
         if (repository.existsById(id))
             repository.deleteById(id);
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    // READ PAGED
+    public Page<Article> readPagedArticle(
+            Integer pageNumber,
+            Integer pageSize
+    ) {
+        Pageable pageable =
+                PageRequest.of(pageNumber, pageSize);
+        Page<Article> articles = repository.findAll(pageable);
+        return articles;
     }
 }
