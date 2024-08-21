@@ -20,7 +20,7 @@ public class UserDto {
         UserDto dto = new UserDto();
         dto.id = entity.getId();
         dto.username = entity.getUsername();
-        dto.password = entity.getPassword();
+        dto.password = "(HIDDEN)";
         dto.profileImgUrl = entity.getProfileImgUrl();
         return dto;
     }
