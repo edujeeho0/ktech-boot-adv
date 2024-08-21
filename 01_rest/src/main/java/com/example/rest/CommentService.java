@@ -4,6 +4,9 @@ import com.example.rest.dto.CommentDto;
 import com.example.rest.entity.Article;
 import com.example.rest.entity.Comment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,6 +43,15 @@ public class CommentService {
                 articleRepository.findById(articleId);
         if (optionalArticle.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Comment> commentPage = commentRepository.findAllByArticle(
+                optionalArticle.get(),
+                pageable
+        );
+
+        System.out.println(commentPage);
+        System.out.println(commentPage.getContent());
+
         // Comment의 리스트니까
         List<Comment> comments = commentRepository
                 .findAllByArticle(optionalArticle.get());
