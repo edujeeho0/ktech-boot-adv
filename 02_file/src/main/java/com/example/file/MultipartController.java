@@ -26,6 +26,7 @@ public class MultipartController {
         Path downloadPath =
                 Path.of("media/" + multipartFile.getOriginalFilename());
         multipartFile.transferTo(downloadPath);
+
         /*byte[] bytes = multipartFile.getBytes();
         System.out.println(new String(bytes));
 

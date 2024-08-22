@@ -6,6 +6,12 @@ spring:
     resources:
       # 내가 어떤 경로의 파일을 정적 파일로 전달할 것인지
       static-locations: classpath:/static,file:media/
+  servlet:
+    multipart:
+      # 개별 파일의 크기 제한
+      max-file-size: 10MB
+      # 전체 총 요청 크기 제한
+      max-request-size: 20MB
 
   datasource:
     url: jdbc:sqlite:db.sqlite
