@@ -39,19 +39,19 @@ public class UserController {
         return response;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, Object> handleValidationError(
-            MethodArgumentNotValidException exception
-    ) {
-        Map<String, Object> errors = new HashMap<>();
-        List<FieldError> fieldErrors =
-                exception.getFieldErrors();
-        for (FieldError error: fieldErrors) {
-            String field = error.getField();
-            String message = error.getDefaultMessage();
-            errors.put(field, message);
-        }
-        return errors;
-    }
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public Map<String, Object> handleValidationError(
+//            MethodArgumentNotValidException exception
+//    ) {
+//        Map<String, Object> errors = new HashMap<>();
+//        List<FieldError> fieldErrors =
+//                exception.getFieldErrors();
+//        for (FieldError error: fieldErrors) {
+//            String field = error.getField();
+//            String message = error.getDefaultMessage();
+//            errors.put(field, message);
+//        }
+//        return errors;
+//    }
 }
