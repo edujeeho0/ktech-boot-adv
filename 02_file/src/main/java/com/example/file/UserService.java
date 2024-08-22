@@ -20,8 +20,13 @@ public class UserService {
 
     // CREATE
     public UserDto create(UserDto dto) {
+//        if (repository.existsByUsername(dto.getUsername())) {
+//            System.out.println("duplicate username");
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+
         if (repository.existsByUsername(dto.getUsername()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new IllegalArgumentException("username already exists");
 
         User newUser = new User();
         newUser.setUsername(dto.getUsername());
@@ -33,8 +38,12 @@ public class UserService {
     public UserDto readByUsername(String username) {
         Optional<User> optionalUser =
                 repository.findByUsername(username);
+//        if (optionalUser.isEmpty()) {
+//            System.out.println("username not exists");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
         if (optionalUser.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new IllegalArgumentException("not found");
 
         return UserDto.fromEntity(optionalUser.get());
     }
@@ -44,8 +53,10 @@ public class UserService {
         // 1. 유저가 존재하는지 확인한다.
         Optional<User> optionalUser =
                 repository.findById(id);
-        if (optionalUser.isEmpty())
+        if (optionalUser.isEmpty()) {
+            System.out.println("username not exists");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
 
         // 2. 파일의 업로드 위치를 결정한다.
         // 추천: media/{userId}/profile.png|jpeg
