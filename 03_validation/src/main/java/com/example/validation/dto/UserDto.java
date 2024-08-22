@@ -1,5 +1,6 @@
 package com.example.validation.dto;
 
+import com.example.validation.constraints.annotations.DayOfWeek;
 import com.example.validation.constraints.annotations.EmailBlackList;
 import com.example.validation.constraints.annotations.EmailWhiteList;
 import jakarta.validation.constraints.*;
@@ -35,5 +36,6 @@ public class UserDto {
     // 이 day에 들어가는 데이터가
     // "mon", "tue", "wed", "thu", "fri", "sat", "sun"
     // 중 하나가 될 수 있도록 annotation을 만들어 봅시다
+    @DayOfWeek
     private String day;
 }
