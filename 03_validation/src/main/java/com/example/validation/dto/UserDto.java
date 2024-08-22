@@ -1,5 +1,6 @@
 package com.example.validation.dto;
 
+import com.example.validation.constraints.annotations.EmailWhiteList;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -16,7 +17,8 @@ public class UserDto {
     @Size(min = 8, message = "username length min: 8")
     private String username;
 
-    @Email
+//    @Email
+    @EmailWhiteList
     private String email;
 
     @Min(value = 14, message = "must be over 14")
