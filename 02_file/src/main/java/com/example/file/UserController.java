@@ -39,16 +39,16 @@ public class UserController {
         return service.updateProfileImg(userId, image);
     }
 
-    // 사용자 오류가 발생할 때 왜 오류가 났는지를 서버에 기록하고 싶다.
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorDto> handleIllegalArgument(
-            final IllegalArgumentException exception
-    ) {
-        System.out.println(exception.getMessage());
-        ErrorDto dto = new ErrorDto();
-        dto.setMessage(exception.getMessage());
-        return ResponseEntity
-                .badRequest()
-                .body(dto);
-    }
+//    // ExceptionHandler는 해당 컨트롤러 내부에서만 동작한다.
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public ResponseEntity<ErrorDto> handleIllegalArgument(
+//            final IllegalArgumentException exception
+//    ) {
+//        System.out.println(exception.getMessage());
+//        ErrorDto dto = new ErrorDto();
+//        dto.setMessage(exception.getMessage());
+//        return ResponseEntity
+//                .badRequest()
+//                .body(dto);
+//    }
 }

@@ -1,6 +1,7 @@
 package com.example.file;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +37,10 @@ public class MultipartController {
         }*/
 
         return "http://localhost:8080/static/" + multipartFile.getOriginalFilename();
+    }
+
+    @GetMapping("/throw")
+    public void throwException() {
+        throw new IllegalArgumentException("test");
     }
 }
