@@ -13,6 +13,9 @@ public class TestController {
     @GetMapping("test")
     public String test() {
         templateClient.testGet();
+        templateClient.testPost();
+        templateClient.testPut();
+        templateClient.testDelete();
         return "success";
     }
 }
